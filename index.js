@@ -9,13 +9,13 @@
 // @supportURL   https://github.com/psto/userscript-clean-copy-url
 // @icon         data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔗</text></svg>
 // @match        *://*/*
-// @grant        none
+// @grant        GM_notification
 // ==/UserScript==
 
 (function () {
   'use strict'
 
-  document.addEventListener('keydown', (event) => {
+  document.addEventListener('keydown', async (event) => {
     // Check if the alt and c keys are pressed
     if (event.altKey && event.code === 'KeyC') {
       // Get the current URL
@@ -27,19 +27,28 @@
         url = url.slice(0, index)
         // Replace the current URL with the new one
         window.history.replaceState(null, null, url)
-        // Copy the new URL to the clipboard
-        navigator.clipboard.writeText(url)
-          .then(() => {
-            // Go to the new URL
-            window.location.href = url
-          })
-          .catch(() => {
-            throw new Error('copying failed')
-          })
+        try {
+          // Copy the new URL to the clipboard
+          await navigator.clipboard.writeText(url)
+          GM_notification(`Copied ${url}`, 'Clean Copy URL', '', null)
+          // Go to the new URL
+          window.location.href = url
+        }
+        catch (error) {
+          GM_notification('Failed to copy URL', 'Clean Copy URL', '', null)
+          console.error(error)
+        }
         // Otherwise just copy the URL
       }
       else {
-        navigator.clipboard.writeText(url)
+        try {
+          await navigator.clipboard.writeText(url)
+          GM_notification(`Copied ${url}`, 'Clean Copy URL', '', null)
+        }
+        catch (error) {
+          GM_notification('Failed to copy URL', 'Clean Copy URL', '', null)
+          console.error(error)
+        }
       }
     }
   })
