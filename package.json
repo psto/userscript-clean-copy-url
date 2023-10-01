@@ -1,0 +1,29 @@
+{
+  "name": "userscript-clean-copy-url",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Clean and copy the URL by pressing \"alt+c\"",
+  "author": "Piotr Stojanow <piotrstojanow@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/psto/userscript-clean-copy-url",
+  "bugs": "https://github.com/psto/userscript-clean-copy-url/issues",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "release": "bumpp -x \"node bump.js\" --all"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.43.1",
+    "bumpp": "^9.2.0",
+    "eslint": "^8.50.0",
+    "lint-staged": "^14.0.1",
+    "pnpm": "^8.8.0",
+    "simple-git-hooks": "^2.9.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}
