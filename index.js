@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Clean Copy URL
 // @namespace    https://stojanow.com/
-// @version      0.1.0
+// @version      0.2.0
 // @description  Clean and copy the URL by pressing "alt+c"
 // @author       Piotr Stojanow (https://github.com/psto/)
 // @license      MIT
